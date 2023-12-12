@@ -1,6 +1,8 @@
 local wezterm = require 'wezterm'
 local act = wezterm.action
 
+local is_maximized = false
+
 wezterm.on('update-right-status', function(window, pane)
   window:set_right_status(window:active_workspace())
 end)
@@ -15,17 +17,18 @@ return {
   initial_cols = 88, --window width
   font_size = 11.0,
   hide_tab_bar_if_only_one_tab = true,
+  --window_decorations = "INTEGRATED_BUTTONS|RESIZE",
   background = {
     {
-      source = { File = 'C:/Users/MSDR1/.config/wezterm/background.jpg',},
+      source = { File = 'C:/Users/MSDR1/.config/wezterm/bg2.jpg',},
       width = '100%',
       hsb = {brightness = 0.03}, --background brightness
       opacity = 1,
     },
   },
   keys = {
-    { key = 'c', mods = 'CTRL', action = wezterm.action.Copy },
-    { key = 'v', mods = 'CTRL', action = wezterm.action.Paste },
+    { key = 'c', mods = 'CTRL', action = act.CopyTo 'ClipboardAndPrimarySelection' },
+    { key = 'v', mods = 'CTRL', action = act.PasteFrom 'Clipboard' },
     --Show a list of possible actions in wezterm
     {
       key = 'a',
@@ -39,6 +42,17 @@ return {
       action = act.ShowLauncherArgs {
         flags = 'FUZZY|WORKSPACES',
       },
+    },
+    {
+      key = 'F11',
+      action = wezterm.action_callback(function(window)
+        if not is_maximized then
+          window:maximize()
+        else 
+          window:restore()
+        end
+        is_maximized = not is_maximized
+      end),
     },
     -- {
     --   key = 'LeftArrow',
