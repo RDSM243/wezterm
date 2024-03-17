@@ -20,9 +20,9 @@ return {
   --window_decorations = "INTEGRATED_BUTTONS|RESIZE",
   background = {
     {
-      source = { File = 'C:/Users/MSDR1/.config/wezterm/bg2.jpg',},
+      source = { File = 'C:/Users/MSDR1/.config/wezterm/bg5.jpg',},
       width = '100%',
-      hsb = {brightness = 0.03}, --background brightness
+      hsb = {brightness = 0.07}, --background brightness
       opacity = 1,
     },
   },
